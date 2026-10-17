@@ -9,10 +9,11 @@
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
 ├── node_modules/
-├── .pnpm-store/       # 沙箱本地 store（待 T0.2 gitignore）
-├── .pnpm-cache/       # 沙箱本地 cache（待 T0.2 gitignore）
+├── .pnpm-store/       # 沙箱本地 store（已 gitignore）
+├── .pnpm-cache/       # 沙箱本地 cache（已 gitignore）
 └── 任务清单.md / 项目考核.md / rules.md
 ```
 
 ## 变更记录
 - [T0.1] 搭建前后端脚手架
+- [T0.2] 完成Git仓库推送
