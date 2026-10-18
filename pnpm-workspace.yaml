@@ -2,5 +2,13 @@ packages:
   - "frontend"
   - "backend"
 
+nodeLinker: hoisted
+symlink: false
+linkWorkspacePackages: false
+hoistWorkspacePackages: false
+
 allowBuilds:
   esbuild: true
+  prisma: true
+  "@prisma/client": true
+  "@prisma/engines": true

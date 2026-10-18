@@ -34,3 +34,7 @@ Thumbs.db
 # 内部考核文档（不入库）
 项目考核.docx
 项目考核.md
+
+# Prisma SQLite 数据库文件
+*.db
+*.db-journal

@@ -4,7 +4,7 @@
 ```
 大云屋（购物）/
 ├── frontend/          # Vite + React 19 + TypeScript
-├── backend/           # Express + TypeScript（/health 探活）
+├── backend/           # Express + Prisma + SQLite（/health、/products）
 ├── package.json       # pnpm workspace 根（dev 脚本一键同起）
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
@@ -17,3 +17,4 @@
 ## 变更记录
 - [T0.1] 搭建前后端脚手架
 - [T0.2] 完成Git仓库推送
+- [T1.1] 商品数据与数据库
