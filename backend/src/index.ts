@@ -1,9 +1,12 @@
-import express from 'express';
+import express, {
+  type ErrorRequestHandler,
+  type RequestHandler,
+} from 'express';
 import cors from 'cors';
-import { PrismaClient } from '@prisma/client';
+import { productsRouter } from './routes/products.js';
+import { ordersRouter } from './routes/orders.js';
 
 const app = express();
-const prisma = new PrismaClient();
 const PORT = Number(process.env.PORT ?? 3000);
 
 app.use(cors());
@@ -13,15 +16,19 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-app.get('/products', async (_req, res) => {
-  try {
-    const products = await prisma.product.findMany({ orderBy: { id: 'asc' } });
-    res.json(products);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'failed to fetch products' });
-  }
-});
+app.use('/products', productsRouter);
+app.use('/orders', ordersRouter);
+
+const notFound: RequestHandler = (_req, res) => {
+  res.status(404).json({ error: 'not found' });
+};
+app.use(notFound);
+
+const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
+  console.error(err);
+  res.status(500).json({ error: 'internal server error' });
+};
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Backend listening on http://localhost:${PORT}`);
