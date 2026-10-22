@@ -1,4 +1,5 @@
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
@@ -16,6 +17,12 @@
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary);
+}
+
+.product-card-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .product-image {
@@ -77,4 +84,46 @@
   background: var(--color-bg);
   border-radius: 4px;
   padding: 2px 6px;
+}
+
+/* 快速加购按钮（hover 显示在右上角） */
+.product-quick-add {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card:hover .product-quick-add {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.product-quick-add:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: scale(1.15);
+}
+
+.product-quick-add.btn-disabled,
+.product-quick-add:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }

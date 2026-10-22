@@ -1,11 +1,14 @@
 import { type FormEvent, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CartIcon, CloudLogo, SearchIcon } from './icons';
+import { useCartStore, selectTotalItems } from '../store/cart-store';
 import './Navbar.css';
 
 export default function Navbar() {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
+  const toggleCart = useCartStore((s) => s.toggle);
+  const totalItems = useCartStore(selectTotalItems);
 
   const onSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -43,11 +46,16 @@ export default function Navbar() {
           </button>
         </form>
 
-        <button type="button" className="nav-icon-btn navbar-cart" aria-label="购物车">
+        <button
+          type="button"
+          className="nav-icon-btn navbar-cart"
+          aria-label={`购物车，共 ${totalItems} 件`}
+          onClick={toggleCart}
+        >
           <CartIcon />
-          <span className="cart-badge" hidden>
-            0
-          </span>
+          {totalItems > 0 && (
+            <span className="cart-badge">{totalItems > 99 ? '99+' : totalItems}</span>
+          )}
         </button>
       </div>
     </header>

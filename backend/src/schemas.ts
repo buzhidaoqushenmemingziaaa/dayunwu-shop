@@ -13,4 +13,6 @@ export const createOrderSchema = z.object({
       })
     )
     .min(1),
+  // 模拟支付标记：true 表示已完成模拟支付
+  paid: z.boolean().optional().default(false),
 });

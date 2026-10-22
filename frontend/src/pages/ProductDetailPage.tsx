@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getProduct } from '../api/products';
 import { ApiError } from '../api/client';
+import { useCartStore } from '../store/cart-store';
 import type { Product } from '../types/product';
 import './ProductDetailPage.css';
 
@@ -10,6 +11,9 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const addItem = useCartStore((s) => s.addItem);
+  const toggleCart = useCartStore((s) => s.toggle);
+  const qty = 1;
 
   useEffect(() => {
     if (!id) return;
@@ -36,10 +40,11 @@ export default function ProductDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // 占位加购（T1.7 接入 Zustand）
+  // 加购 → 加入购物车并自动打开侧拉栏
   const handleAddToCart = () => {
     if (!product || product.stock <= 0) return;
-    alert(`🛒 【T1.7 接入中】将「${product.name}」加入购物车`);
+    addItem(product, qty);
+    toggleCart();
   };
 
   // 库存展示

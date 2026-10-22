@@ -13,7 +13,7 @@ ordersRouter.post(
       res.status(400).json({ error: 'invalid order payload' });
       return;
     }
-    const { items } = parsed.data;
+    const { items, paid } = parsed.data;
 
     const productIds = items.map((i) => i.productId);
     const products = await prisma.product.findMany({
@@ -53,9 +53,10 @@ ordersRouter.post(
         data: {
           orderNumber,
           totalAmount,
-          status: 'PENDING',
+          status: paid ? 'PAID' : 'PENDING',
           items: { create: orderItems },
         },
+        include: { items: true },
       });
       for (const i of items) {
         await tx.product.update({
