@@ -5,6 +5,14 @@
 大云屋（购物）/
 ├── frontend/          # Vite + React 19 + TypeScript
 ├── backend/           # Express + Prisma + SQLite（商品/订单 API）
+    backend/src/
+    ├── index.ts          # 入口 + 404/500 中间件
+    ├── db.ts             # PrismaClient 单例
+    ├── async-handler.ts  # 异步错误转交
+    ├── schemas.ts        # zod 校验
+    └── routes/
+        ├── products.ts   # GET /  GET /:id
+        └── orders.ts     # POST /  GET /:id       
 ├── package.json       # pnpm workspace 根（dev 脚本一键同起）
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
@@ -19,3 +27,5 @@
 - [T0.2] 完成Git仓库推送
 - [T1.1] 商品数据与数据库
 - [T1.2] 后端完整API
+- [T1.3] 代理+apiClient联调
+- [T1.4] 首页与导航条
