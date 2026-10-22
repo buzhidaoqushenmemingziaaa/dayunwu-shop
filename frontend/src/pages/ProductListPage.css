@@ -96,6 +96,21 @@
   color: var(--color-text-secondary);
 }
 
+/* 价格区间 */
+.price-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-label {
+  margin-right: 4px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
 /* 结果计数 */
 .result-count {
   font-size: 14px;
