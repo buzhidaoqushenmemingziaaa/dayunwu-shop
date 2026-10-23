@@ -1,0 +1,3 @@
+本项目为 Node.js 项目，依赖请参见：package.json
+前端依赖定义在 frontend/package.json
+安装命令：pnpm install
