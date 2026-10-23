@@ -35,8 +35,8 @@
 .product-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 12px 14px 14px;
+  gap: clamp(4px, 0.6vw, 8px);
+  padding: clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 14px) clamp(10px, 1.2vw, 14px);
 }
 
 .product-category {
@@ -89,14 +89,14 @@
 /* 快速加购按钮（hover 显示在右上角） */
 .product-quick-add {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
+  top: clamp(4px, 0.8vw, 8px);
+  right: clamp(4px, 0.8vw, 8px);
+  width: clamp(26px, 3vw, 34px);
+  height: clamp(26px, 3vw, 34px);
   border-radius: 50%;
   background: var(--color-primary);
   color: #fff;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 22px);
   font-weight: 600;
   line-height: 1;
   box-shadow: var(--shadow-md);

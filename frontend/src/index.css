@@ -1,4 +1,12 @@
 :root {
+  /* 断点变量（仅作文档参考）
+     ⚠️ CSS 变量不能用在 @media 条件里！
+     media query 必须直接写硬编码像素值 */
+  --bp-sm: 640px;   /* 手机 */
+  --bp-md: 768px;   /* 大手机/小平板 */
+  --bp-lg: 1024px;  /* 平板 */
+  --bp-xl: 1280px;  /* 桌面 */
+
   --color-primary: #ff5a1f;
   --color-primary-dark: #e64a10;
   --color-text: #1f2329;

@@ -1,5 +1,5 @@
 .order-page {
-  padding: 24px 0 48px;
+  padding: clamp(16px, 2vw, 24px) 0 clamp(32px, 4vw, 48px);
 }
 
 /* 状态 */
@@ -8,8 +8,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 80px 20px;
+  gap: clamp(8px, 1vw, 12px);
+  padding: clamp(60px, 8vw, 80px) 20px;
   color: var(--color-text-secondary);
 }
 
@@ -41,9 +41,9 @@
 .order-success {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 24px;
-  margin-bottom: 20px;
+  gap: clamp(10px, 1.4vw, 16px);
+  padding: clamp(16px, 1.8vw, 24px);
+  margin-bottom: clamp(14px, 1.6vw, 20px);
   background: linear-gradient(120deg, #f0faf3 0%, #e3f7ea 100%);
   border: 1px solid #c9ecd5;
   border-radius: var(--radius);
@@ -51,12 +51,12 @@
 
 .success-icon {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: clamp(36px, 4vw, 48px);
+  height: clamp(36px, 4vw, 48px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: clamp(20px, 2.4vw, 26px);
   font-weight: 700;
   color: #1a8f3a;
   background: #fff;
@@ -65,18 +65,18 @@
 }
 
 .success-title {
-  font-size: 22px;
+  font-size: clamp(18px, 2vw, 22px);
   margin-bottom: 4px;
 }
 
 .success-subtitle {
-  font-size: 14px;
+  font-size: clamp(12px, 1.4vw, 14px);
   color: var(--color-text-secondary);
 }
 
 /* 订单卡片 */
 .order-card {
-  padding: 20px;
+  padding: clamp(14px, 1.8vw, 20px);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -87,11 +87,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: clamp(12px, 1.4vw, 16px);
 }
 
 .order-card-title {
-  font-size: 18px;
+  font-size: clamp(16px, 1.8vw, 18px);
 }
 
 .order-status {
@@ -111,10 +111,10 @@
 /* 订单概要 */
 .order-meta {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 22vw), 1fr));
+  gap: clamp(8px, 1vw, 12px);
+  padding: clamp(12px, 1.4vw, 16px);
+  margin-bottom: clamp(14px, 1.6vw, 20px);
   background: var(--color-bg);
   border-radius: var(--radius);
 }
@@ -213,7 +213,7 @@
 
 .order-foot-amount {
   text-align: right;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -222,8 +222,8 @@
 .order-actions {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-top: 28px;
+  gap: clamp(8px, 1vw, 12px);
+  margin-top: clamp(20px, 2.4vw, 28px);
 }
 
 .order-primary-btn,
@@ -231,7 +231,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 32px;
+  padding: clamp(10px, 1.4vw, 12px) clamp(24px, 2.8vw, 32px);
   font-weight: 600;
   border-radius: var(--radius);
   transition:
@@ -264,17 +264,15 @@
 /* 响应式 */
 @media (max-width: 768px) {
   .order-success {
-    padding: 18px;
+    padding: clamp(14px, 1.6vw, 18px);
   }
 
   .success-title {
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 18px);
   }
+}
 
-  .order-meta {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+@media (max-width: 640px) {
   .order-actions {
     flex-direction: column;
   }

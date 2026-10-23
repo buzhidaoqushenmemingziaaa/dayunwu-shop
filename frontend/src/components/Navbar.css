@@ -18,7 +18,7 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: clamp(6px, 0.7vw, 8px);
   color: var(--color-primary);
   transition: transform 0.2s ease;
 }
@@ -28,7 +28,7 @@
 }
 
 .navbar-brand {
-  font-size: 20px;
+  font-size: clamp(17px, 1.8vw, 20px);
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -94,7 +94,7 @@
   border: none;
   outline: none;
   background: transparent;
-  height: 32px;
+  height: clamp(28px, 3vw, 32px);
 }
 
 .nav-icon-btn {
@@ -102,8 +102,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: clamp(32px, 3.5vw, 38px);
+  height: clamp(32px, 3.5vw, 38px);
   border-radius: 50%;
   color: var(--color-text-secondary);
   transition:
@@ -133,16 +133,100 @@
   text-align: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .navbar-inner {
-    gap: 12px;
+    gap: clamp(8px, 1vw, 14px);
   }
 
+  .navbar-search {
+    max-width: 320px;
+  }
+}
+
+/* 汉堡菜单：桌面隐藏 */
+.navbar-hamburger {
+  display: none;
+}
+
+/* 移动端下拉菜单 */
+.mobile-menu {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(8px, 1vw, 12px) clamp(12px, 1.4vw, 16px);
+  gap: clamp(2px, 0.3vw, 4px);
+}
+
+.mobile-menu a {
+  padding: clamp(8px, 1vw, 10px) clamp(10px, 1.2vw, 12px);
+  border-radius: 6px;
+  font-size: clamp(14px, 1.6vw, 16px);
+  font-weight: 500;
+  color: var(--color-text);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  background: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.mobile-menu a.active {
+  background: #fff7f2;
+  color: var(--color-primary);
+}
+
+/* 移动端搜索框（内嵌在下拉菜单里） */
+.mobile-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.mobile-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: clamp(13px, 1.4vw, 15px);
+}
+
+.mobile-search button {
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.mobile-search button:hover {
+  color: var(--color-primary);
+}
+
+/* 手机断点 */
+@media (max-width: 640px) {
   .navbar-links {
     display: none;
   }
 
-  .navbar-brand {
-    font-size: 17px;
+  .navbar-search {
+    display: none;
+  }
+
+  .navbar-hamburger {
+    display: flex;
   }
 }

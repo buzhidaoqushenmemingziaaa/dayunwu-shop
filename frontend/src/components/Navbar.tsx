@@ -1,11 +1,12 @@
 import { type FormEvent, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { CartIcon, CloudLogo, SearchIcon } from './icons';
+import { CartIcon, CloudLogo, SearchIcon, MenuIcon, CloseIcon } from './icons';
 import { useCartStore, selectTotalItems } from '../store/cart-store';
 import './Navbar.css';
 
 export default function Navbar() {
   const [keyword, setKeyword] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const toggleCart = useCartStore((s) => s.toggle);
   const totalItems = useCartStore(selectTotalItems);
@@ -14,6 +15,7 @@ export default function Navbar() {
     e.preventDefault();
     const q = keyword.trim();
     if (q) navigate(`/products?keyword=${encodeURIComponent(q)}`);
+    setMenuOpen(false);
   };
 
   return (
@@ -57,7 +59,40 @@ export default function Navbar() {
             <span className="cart-badge">{totalItems > 99 ? '99+' : totalItems}</span>
           )}
         </button>
+
+        <button
+          type="button"
+          className="nav-icon-btn navbar-hamburger"
+          aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
       </div>
+
+      {menuOpen && (
+        <nav className="mobile-menu" role="menu" aria-label="移动端导航">
+          <NavLink to="/" end role="menuitem" onClick={() => setMenuOpen(false)}>
+            首页
+          </NavLink>
+          <NavLink to="/products" role="menuitem" onClick={() => setMenuOpen(false)}>
+            全部商品
+          </NavLink>
+          <form className="mobile-search" onSubmit={onSearch} role="search">
+            <input
+              type="search"
+              placeholder="搜索商品…"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              aria-label="搜索商品"
+            />
+            <button type="submit" aria-label="搜索">
+              <SearchIcon size={16} />
+            </button>
+          </form>
+        </nav>
+      )}
     </header>
   );
 }

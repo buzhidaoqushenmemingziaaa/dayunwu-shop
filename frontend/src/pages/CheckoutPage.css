@@ -1,14 +1,14 @@
 .checkout-page {
-  padding: 24px 0 48px;
+  padding: clamp(16px, 2vw, 24px) 0 clamp(32px, 4vw, 48px);
 }
 
 /* 面包屑 */
 .checkout-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-  font-size: 13px;
+  gap: clamp(4px, 0.6vw, 8px);
+  margin-bottom: clamp(14px, 1.6vw, 20px);
+  font-size: clamp(12px, 1.3vw, 13px);
   color: var(--color-text-secondary);
 }
 
@@ -32,9 +32,9 @@
 .checkout-steps {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
+  gap: clamp(8px, 1vw, 12px);
+  padding: clamp(12px, 1.4vw, 16px) clamp(14px, 1.8vw, 20px);
+  margin-bottom: clamp(14px, 1.6vw, 20px);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -43,20 +43,20 @@
 .checkout-step {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: clamp(4px, 0.6vw, 8px);
+  font-size: clamp(12px, 1.4vw, 14px);
   color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
 .step-index {
-  width: 24px;
-  height: 24px;
+  width: clamp(20px, 2.2vw, 24px);
+  height: clamp(20px, 2.2vw, 24px);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: clamp(11px, 1.3vw, 13px);
   font-weight: 600;
   background: var(--color-bg);
 }
@@ -85,8 +85,8 @@
 /* 布局 */
 .checkout-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(min(320px, 30vw), 320px);
+  gap: clamp(14px, 1.6vw, 20px);
   align-items: start;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .checkout-panel {
-  padding: 20px;
+  padding: clamp(14px, 1.8vw, 20px);
 }
 
 .panel-header {
@@ -149,8 +149,8 @@
 
 .checkout-item-image {
   flex-shrink: 0;
-  width: 64px;
-  height: 64px;
+  width: clamp(48px, 7vw, 64px);
+  height: clamp(48px, 7vw, 64px);
   border-radius: 6px;
   object-fit: cover;
   background: var(--color-bg);
@@ -202,8 +202,8 @@
 /* 支付方式 */
 .payment-methods {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 25vw), 1fr));
+  gap: clamp(8px, 1vw, 12px);
   margin-top: 4px;
 }
 
@@ -211,7 +211,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px;
+  padding: clamp(12px, 1.4vw, 16px);
   text-align: left;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -252,13 +252,13 @@
 
 /* 汇总 */
 .checkout-summary {
-  padding: 20px;
+  padding: clamp(14px, 1.8vw, 20px);
   position: sticky;
   top: calc(var(--nav-height) + 16px);
 }
 
 .summary-title {
-  font-size: 18px;
+  font-size: clamp(16px, 1.8vw, 18px);
   margin-bottom: 12px;
 }
 
@@ -266,7 +266,7 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  font-size: 14px;
+  font-size: clamp(12px, 1.4vw, 14px);
   color: var(--color-text-secondary);
 }
 
@@ -276,12 +276,12 @@
   align-items: baseline;
   margin-top: 8px;
   padding-top: 16px;
-  font-size: 15px;
+  font-size: clamp(13px, 1.5vw, 15px);
   border-top: 1px dashed var(--color-border);
 }
 
 .summary-total strong {
-  font-size: 22px;
+  font-size: clamp(18px, 2.2vw, 24px);
   color: var(--color-primary);
 }
 
@@ -375,7 +375,7 @@
 }
 
 /* 响应式 */
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
   .checkout-layout {
     grid-template-columns: 1fr;
   }
@@ -386,13 +386,9 @@
 }
 
 @media (max-width: 640px) {
-  .payment-methods {
-    grid-template-columns: 1fr;
-  }
-
   .checkout-item-image {
-    width: 52px;
-    height: 52px;
+    width: clamp(44px, 14vw, 52px);
+    height: clamp(44px, 14vw, 52px);
   }
 
   .checkout-item-subtotal {
