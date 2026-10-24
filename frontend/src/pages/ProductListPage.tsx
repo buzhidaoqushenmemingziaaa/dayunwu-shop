@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getProducts } from '../api/products';
 import ProductCard from '../components/ProductCard';
@@ -24,6 +24,8 @@ function parsePrice(value: string | null): number | null {
 export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
+  const [total, setTotal] = useState(0);
+  const [allCategories, setAllCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,36 +35,34 @@ export default function ProductListPage() {
   const maxPrice = parsePrice(searchParams.get('maxPrice'));
   const priceActive = minPrice !== null || maxPrice !== null;
 
-  // 拉取全部商品
+  // 分类入口：首次拉取全量商品聚合，不受筛选影响
+  useEffect(() => {
+    getProducts()
+      .then((res) => {
+        setAllCategories([...new Set(res.items.map((p) => p.category))]);
+      })
+      .catch(() => {
+        // 分类入口加载失败不影响商品列表
+      });
+  }, []);
+
+  // 服务端筛选：条件变化时重新请求
   useEffect(() => {
     setLoading(true);
     setError(null);
-    getProducts()
-      .then((list) => setProducts(list))
+    getProducts({
+      keyword: keyword || undefined,
+      category: category || undefined,
+      minPrice: minPrice ?? undefined,
+      maxPrice: maxPrice ?? undefined,
+    })
+      .then((res) => {
+        setProducts(res.items);
+        setTotal(res.total);
+      })
       .catch(() => setError('商品加载失败，请稍后重试'))
       .finally(() => setLoading(false));
-  }, []);
-
-  // 聚合所有分类（去重）
-  const allCategories = useMemo(() => {
-    const set = new Set(products.map((p) => p.category));
-    return [...set];
-  }, [products]);
-
-  // 客户端筛选
-  const filtered = useMemo(() => {
-    return products.filter((p) => {
-      if (category && p.category !== category) return false;
-      if (minPrice !== null && p.price < minPrice) return false;
-      if (maxPrice !== null && p.price > maxPrice) return false;
-      if (keyword) {
-        const k = keyword.toLowerCase();
-        const haystack = `${p.name} ${p.intro} ${p.tags} ${p.brand}`.toLowerCase();
-        if (!haystack.includes(k)) return false;
-      }
-      return true;
-    });
-  }, [products, category, keyword, minPrice, maxPrice]);
+  }, [keyword, category, minPrice, maxPrice]);
 
   // 更新搜索关键词（回车触发）
   const [inputKeyword, setInputKeyword] = useState(keyword);
@@ -184,7 +184,7 @@ export default function ProductListPage() {
         {/* 结果计数 */}
         {!loading && !error && (
           <p className="result-count">
-            共 <strong>{filtered.length}</strong> 件商品
+            共 <strong>{total}</strong> 件商品
             {keyword && <span className="result-tag">关键词：{keyword}</span>}
             {category && <span className="result-tag">分类：{category}</span>}
             {priceActive && (
@@ -205,7 +205,7 @@ export default function ProductListPage() {
         )}
 
         {/* 空状态 */}
-        {!loading && !error && filtered.length === 0 && (
+        {!loading && !error && products.length === 0 && (
           <div className="state state-empty">
             <span className="empty-icon">🔍</span>
             <p>没有找到匹配的商品</p>
@@ -216,9 +216,9 @@ export default function ProductListPage() {
         )}
 
         {/* 商品网格 */}
-        {!loading && !error && filtered.length > 0 && (
+        {!loading && !error && products.length > 0 && (
           <div className="product-grid">
-            {filtered.map((p) => (
+            {products.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>

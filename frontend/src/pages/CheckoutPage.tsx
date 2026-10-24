@@ -7,6 +7,7 @@ import {
   selectTotalItems,
   selectTotalAmount,
 } from '../store/cart-store';
+import { toast } from '../store/toast-store';
 import './CheckoutPage.css';
 
 type Step = 'confirm' | 'pay';
@@ -60,19 +61,23 @@ export default function CheckoutPage() {
         true
       );
       clearCart();
+      toast.success('支付成功，订单已创建');
       navigate(`/orders/${order.id}`, { replace: true });
     } catch (err) {
+      let message: string;
       if (err instanceof ApiError) {
         if (err.message === 'insufficient stock') {
-          setError('部分商品库存不足，请返回购物车调整数量');
+          message = '部分商品库存不足，请返回购物车调整数量';
         } else if (err.message === 'product not found') {
-          setError('部分商品已下架，请返回购物车调整');
+          message = '部分商品已下架，请返回购物车调整';
         } else {
-          setError(`下单失败：${err.message}`);
+          message = `下单失败：${err.message}`;
         }
       } else {
-        setError('网络异常，请稍后重试');
+        message = '网络异常，请稍后重试';
       }
+      setError(message);
+      toast.error(message);
       setSubmitting(false);
     }
   };

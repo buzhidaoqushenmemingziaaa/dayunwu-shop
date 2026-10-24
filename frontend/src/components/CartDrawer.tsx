@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCartStore, selectTotalItems, selectTotalAmount } from '../store/cart-store';
+import { toast } from '../store/toast-store';
 import './CartDrawer.css';
 
 export default function CartDrawer() {
@@ -35,6 +36,12 @@ export default function CartDrawer() {
   const goCheckout = () => {
     setOpen(false);
     navigate('/checkout');
+  };
+
+  // 清空购物车并提示
+  const handleClearCart = () => {
+    clearCart();
+    toast.success('购物车已清空');
   };
 
   return (
@@ -90,6 +97,7 @@ export default function CartDrawer() {
                     className="cart-item-image"
                     src={it.product.image}
                     alt={it.product.name}
+                    loading="lazy"
                   />
                 </Link>
                 <div className="cart-item-info">
@@ -150,7 +158,7 @@ export default function CartDrawer() {
               </span>
             </div>
             <div className="cart-footer-actions">
-              <button className="cart-clear" onClick={clearCart}>
+              <button className="cart-clear" onClick={handleClearCart}>
                 清空
               </button>
               <button className="cart-checkout" onClick={goCheckout}>

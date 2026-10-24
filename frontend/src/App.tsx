@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import CartDrawer from './components/CartDrawer'
+import Toast from './components/Toast'
 import HomePage from './pages/HomePage'
 import ProductListPage from './pages/ProductListPage'
 import ProductDetailPage from './pages/ProductDetailPage'
@@ -12,6 +13,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <CartDrawer />
+      <Toast />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductListPage />} />

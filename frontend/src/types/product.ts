@@ -12,3 +12,9 @@ export interface Product {
   tags: string;
   createdAt: string;
 }
+
+// 商品列表分页响应
+export interface ProductListResult {
+  items: Product[];
+  total: number;
+}

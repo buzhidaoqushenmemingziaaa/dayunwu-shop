@@ -7,12 +7,14 @@ import './HomePage.css';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getProducts()
-      .then(setProducts)
-      .catch(() => setError('商品加载失败，请稍后重试'));
+      .then((res) => setProducts(res.items))
+      .catch(() => setError('商品加载失败，请稍后重试'))
+      .finally(() => setLoading(false));
   }, []);
 
   // 分类入口：从商品数据聚合出分类与数量
@@ -49,6 +51,7 @@ export default function HomePage() {
       {/* 分类入口 */}
       <section className="container section">
         <h2 className="section-title">商品分类</h2>
+        {loading && <p className="section-hint">分类加载中…</p>}
         {error && <p className="section-error">{error}</p>}
         <div className="category-grid">
           {categories.map((c) => (
@@ -67,11 +70,25 @@ export default function HomePage() {
       {/* 推荐商品列表 */}
       <section className="container section">
         <h2 className="section-title">为你推荐</h2>
-        <div className="product-grid">
-          {products.slice(0, 8).map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        {loading && (
+          <div className="home-state">
+            <div className="spinner" />
+            <span>加载商品中…</span>
+          </div>
+        )}
+        {!loading && products.length === 0 && (
+          <div className="home-empty">
+            <span className="home-empty-icon">📦</span>
+            <p>暂无商品，稍后再来看看</p>
+          </div>
+        )}
+        {!loading && products.length > 0 && (
+          <div className="product-grid">
+            {products.slice(0, 8).map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

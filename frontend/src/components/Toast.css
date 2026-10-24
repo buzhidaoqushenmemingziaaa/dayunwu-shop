@@ -1,0 +1,90 @@
+/* 全局轻提示：位于导航栏下方，层级高于购物车侧拉栏 */
+.toast-container {
+  position: fixed;
+  top: calc(var(--nav-height) + 12px);
+  right: 16px;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(340px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border-left: 4px solid #2563eb;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  font-size: 14px;
+  pointer-events: auto;
+  animation: toast-in 0.2s ease-out;
+}
+
+.toast-success {
+  border-left-color: #16a34a;
+}
+
+.toast-error {
+  border-left-color: #e11d48;
+}
+
+.toast-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  color: #2563eb;
+}
+
+.toast-success .toast-dot {
+  color: #16a34a;
+}
+
+.toast-error .toast-dot {
+  color: #e11d48;
+}
+
+.toast-message {
+  flex: 1;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.toast-close {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  border-radius: 4px;
+}
+
+.toast-close:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+}
