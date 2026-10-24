@@ -54,6 +54,11 @@ button {
   background: none;
 }
 
+/* 按钮按压缩放反馈 */
+button:not(:disabled):active {
+  transform: scale(0.97);
+}
+
 input {
   font: inherit;
 }
@@ -61,6 +66,31 @@ input {
 img {
   display: block;
   max-width: 100%;
+}
+
+/* 页面切换淡入 */
+main {
+  animation: page-fade 0.24s ease-out;
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 尊重系统「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .container {
